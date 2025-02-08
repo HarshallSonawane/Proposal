@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Shraa ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      font-family: 'Arial', sans-serif;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      max-width: 400px;
+      position: relative;
+    }
+
+    h1, p {
+      color: #ff4b5c;
+    }
+
+    button {
+      padding: 15px 30px;
+      margin: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    #startBtn {
+      background-color: #ff4b5c;
+      color: white;
+    }
+
+    .option-btn {
+      background-color: #ff4b5c;
+      color: white;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+    }
+
+    .hearts {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #ff4b5c;
+      transform: rotate(45deg);
+      animation: floatUp 4s linear infinite;
+    }
+
+    .heart::before, .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #ff4b5c;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(100vh) rotate(45deg);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(-20vh) rotate(45deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="mainContent">
+    <h1>Hey Shraa! 😍</h1>
+    <p>I have something special for you...</p>
+    <button id="startBtn">Click to See!</button>
+  </div>
+
+  <div class="hearts" id="heartsContainer"></div>
+
+  <script>
+    const startBtn = document.getElementById('startBtn');
+    const mainContent = document.getElementById('mainContent');
+    const heartsContainer = document.getElementById('heartsContainer');
+
+    let noClickCount = 0;
+
+    startBtn.addEventListener('click', () => {
+      showProposal();
+      createHearts();
+    });
+
+    function showProposal() {
+      mainContent.innerHTML = `
+        <h1>Will you be my Valentine? 😍😍</h1>
+        <button class="option-btn" onclick="showPoem()">Yes</button>
+        <button class="option-btn" onclick="handleNoClick()">No</button>
+      `;
+    }
+
+    function handleNoClick() {
+      noClickCount++;
+      const messages = [
+        "Are you sure it's a no? 😢",
+        "Really? Think again! 😳",
+        "No way! You can't resist me! 😜",
+        "I know you don't mean that! 😘",
+        "Come on, just say YES already! 🥺",
+        "Okay, last chance! Pretty please? 🥰"
+      ];
+
+      if (noClickCount < messages.length) {
+        mainContent.innerHTML = `
+          <h1>${messages[noClickCount - 1]}</h1>
+          <button class="option-btn" onclick="showPoem()">Okay, Yes!</button>
+          <button class="option-btn" onclick="handleNoClick()">Still No</button>
+        `;
+      } else {
+        mainContent.innerHTML = `
+          <h1>Alright, you leave me no choice! 😤</h1>
+          <button class="option-btn" onclick="showPoem()">Fine, Yes!</button>
+        `;
+      }
+      createHearts();
+    }
+
+    function showPoem() {
+      mainContent.innerHTML = `
+        <h1>A Little Poem for You 🌺</h1>
+        <p>If kisses were snowflakes, I’d send you a storm,
+            <br>If hugs were warm sunshine, I’d keep you warm,
+            <br>If love was a journey, we’d roam far and wide,
+            <br>But lucky for me, you’re right by my side.
+            </p>
+        <button class="option-btn" onclick="finalMessage()">Lessgo!!!</button>
+      `;
+      createHearts();
+    }
+
+    function finalMessage() {
+      mainContent.innerHTML = `
+        <h1>Okay! So no matter how tough it gets; know I'll always be
+            there with you through thick and thin! ❤️💫</h1>
+        <button class="option-btn" onclick="playMusic()">One Last Surprise!</button>
+      `;
+      createHearts();
+    }
+
+    function playMusic() {
+      const audio = new Audio('https://www.bensound.com/bensound-music/bensound-romantic.mp3');
+      audio.play();
+      mainContent.innerHTML += `
+        <p>Enjoy the music, my love! 🎵❤️</p>
+        <img src="https://media.giphy.com/media/3oz8xKaR836UJOYeOc/giphy.gif" alt="Dancing Hearts" style="width: 100%; border-radius: 20px; margin-top: 20px;">
+      `;
+      showFireworks();
+    }
+
+    function createHearts() {
+      for (let i = 0; i < 30; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+        heartsContainer.appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 5000);
+      }
+    }
+
+    function showFireworks() {
+      const fireworksContainer = document.createElement('div');
+      fireworksContainer.style.position = 'absolute';
+      fireworksContainer.style.top = '0';
+      fireworksContainer.style.left = '0';
+      fireworksContainer.style.width = '100%';
+      fireworksContainer.style.height = '100%';
+      fireworksContainer.style.pointerEvents = 'none';
+
+      const fireworksGif = document.createElement('img');
+      fireworksGif.src = 'https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExNWpmbmlsazFqN3U4NXcxd2pqaWllZ3BkeGJqdm9kdnQ2cHp3bWVrZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/dsMFrxB2agKf6/giphy.gif';
+      fireworksGif.style.width = '100%';
+      fireworksGif.style.height = '100%';
+      fireworksGif.style.objectFit = 'contain';
+
+      fireworksContainer.appendChild(fireworksGif);
+      document.body.appendChild(fireworksContainer);
+
+      setTimeout(() => {
+        fireworksContainer.remove();
+      }, 7000);
+    }
+  </script>
+</body>
+</html>
